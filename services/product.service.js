@@ -33,7 +33,7 @@ class ProductsService {
 
   async find() {
     const [data]  = await sequelize.query('SELECT * FROM tasks');
-    return data;
+    return data
   }
 
   async findOne(id) {
