@@ -1,14 +1,21 @@
 const boom = require('@hapi/boom');
+const pool = require('../libs/postgres.pool');
 
 class UserService {
-  constructor() {}
+  constructor() {
+    this.pool = pool;
+    this.pool.on('error', (err) => {
+      console.error('Unexpected error on idle client', err);
+    });
+  }
 
   async create(data) {
     return data;
   }
 
   async find() {
-    return [];
+    const response = await this.pool.query('SELECT * FROM tasks');
+    return response.rows;
   }
 
   async findOne(id) {
